@@ -20,43 +20,7 @@ const routes = [
         name: 'Register',
         component: () => import('@/views/Register'),
         meta: { title: '注册账号' },
-    },
-    {
-        path: "/password/change",
-        name: 'PasswordChangeView',
-        component: () => import('@/views/PasswordChangeView'),
-        meta: { title: '修改密码' },
-    },
-    {
-        path: "/ticketunclaimed",
-        name: 'TicketUnclaimed',
-        component: () => import('@/views/TicketUnclaimed'),
-        meta: { title: '领券' },
-    },
-    {
-        path: "/ticketpartial",
-        name: 'TicketPartial',
-        component: () => import('@/views/TicketPartial'),
-        meta: { title: '券明细' },
-    },
-    {
-        path: "/ticketcompleted",
-        name: 'TicketCompleted',
-        component: () => import('@/views/TicketCompleted'),
-        meta: { title: '券明细' },
-    },
-    {
-        path: "/ticketcreate",
-        name: 'TicketCreate',
-        component: () => import('@/views/TicketCreate'),
-        meta: { title: '创建券' },
-    },
-    {
-        path: "/ticketgrant",
-        name: 'TicketGrant',
-        component: () => import('@/views/TicketGrant'),
-        meta: { title: '发券' },
-    },
+    }
 ]
 
 const router = new VueRouter({

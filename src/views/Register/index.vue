@@ -13,7 +13,7 @@
                     <i></i>
                 </div>
                 <div class="form-item">
-                    邮箱验证码<input type="text" placeholder="请输入邮箱验证码" v-model="captcha" required>
+                    邮箱验证码<input type="text" placeholder="请输入邮箱验证码" v-model="captcha" required maxlength="6">
                     <button @click="handleCode">发送验证码</button>
                 </div>
             </div>
@@ -25,6 +25,7 @@
 <script>
     import axios from 'axios'
     import { doEmailSend } from '@/api'
+    import { doRegister } from '@/api'
 
     export default {
         data(){
@@ -42,30 +43,22 @@
                     alert('邮箱格式错误，请重新输入')
                     this.email = ''
                 }
-                else {
-                    console.log('0000')
-                }
             },
             handleCode(){
                 const { email } = this
-                doEmailSend({ email, type: 'register' })
+                doEmailSend({ email, type: 'register' }).then(result => {
+                  console.log(result)
+                }).catch(error => {
+                  console.dir(error)
+                })
             },
             handleRegister(){
-                axios({
-                    url: 'https://api.daysnap.cn/api/v1/auth/signup',
-                    method: 'POST',
-                    data: {
-                        nickname: this.nickname,
-                        email: this.email,
-                        password: this.password,
-                        captcha: this.captcha,
-                    }
-                }).then(result => {
-                    this.$router.push('/login'),
-                    console.log(result)
-                }).catch(error => {
-                    console.dir(error)
-                })
+              const { nickname, email, password, captcha } = this
+              doRegister( { nickname, email, password, captcha } ).then(result => {
+                console.log(result)
+              }).catch(error => {
+                console.dir(error)
+              })
             },
 
         }
