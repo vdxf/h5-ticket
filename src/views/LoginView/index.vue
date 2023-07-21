@@ -6,20 +6,16 @@
             <div class="form-box">
                 <div class="form-item">
                     <span>账号</span>
-                    <input type="text" placeholder="请输入账号" v-model="account"/>
+                    <input type="text" placeholder="请输入账号" v-model.trim="account"/>
                 </div>
                 <div class="form-item">
                     <span>邮箱</span>
-                    <input type="text" placeholder="请输入邮箱" v-model="email"/>
+                    <input type="text" placeholder="请输入邮箱" v-model.trim="email" @blur="email_blur"/>
                 </div>
                 <div class="form-item">
                     <span>密码</span>
-                    <input type="password" placeholder="请输入密码" v-model="password"/>
-                    <i></i>
-                </div>
-                <div class="form-item">
-                    <span>验证码</span>
-                    <input type="text" placeholder="请输入验证码" v-model="captcha"/>
+                    <input type="password" id="pwd" placeholder="请输入密码" v-model.trim="password"/>
+                    <img :src=" eye ? openeye : closeeye " alt="img" @click="handlePwd">
                 </div>
             </div>
             <button class="c-button" @click="handleSubmit">登录</button>
@@ -29,32 +25,46 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {doLogin} from '@/api'
 export default {
     data() {
         return {
             account: "",
             email: '',
             password: "",
-            captcha: '',
+            eye: true,
+            openeye: require("@/assets/images/eyeclose.png"),
+            closeeye: require("@/assets/images/eyeopen.png"),
+
         };
     },
     methods: {
+      handlePwd(){
+        let input = document.getElementById('pwd');
+        if ( input.type === 'text' ) {
+          input.type = 'password';
+          this.eye = true;
+        }
+        else {
+          input.type = 'text';
+          this.eye = false;
+        }
+      },
+      email_blur() {
+        let verify = /^[A-Za-z0-9_-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$/
+        if (verify.test(this.email) === false){
+          alert('邮箱格式错误，请重新输入')
+          this.email = ''
+        }
+      },
         handleSubmit() {
-            axios({
-                    url: 'https://api.daysnap.cn/api/v1/auth/signin',
-                    method: 'POST',
-                    data: {
-                        email: this.email,
-                        password:this.password,
-                        captcha:this.captcha,
-                    }
-                }).then(result => {
-                    this.$router.push("/");
-                    console.log(result)
-                }).catch(error => {
-                    console.dir(error)
-                })
+          const { email, password} = this
+          doLogin({ email, password }).then(result => {
+            this.$router.push('/')
+            console.log(result)
+          }).catch(error => {
+            alert(error.response.data.msg)
+          })
         },
     },
 }
@@ -123,13 +133,12 @@ export default {
         font-size: j(16);
         color: #333;
     }
-    i{
+    img{
         display: block;
         width: j(16);
         height: j(16);
-        background: url(@/assets/images/eyeclose.png) right center no-repeat;
-        background-size: j(16) j(16);
         position: absolute;
+        top: j(56);
         right: j(16);
 
     }

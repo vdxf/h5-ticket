@@ -20,4 +20,10 @@ export const doRegister = (data = {}) => {
 }
 // 登录
 
-
+export const doLogin = (data = {}) => {
+    return request({
+        url: '/api/v1/auth/signin',
+        method: 'POST',
+        data,
+    })
+}
