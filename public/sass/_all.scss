@@ -1,0 +1,45 @@
+$width: 375px;
+$height:812px;
+$color:#fff;
+$margin: 0 auto;
+$position-r:relative;
+$position-a:absolute;
+$top:0;
+$left:0;
+$right:0;
+$buttom:0;
+$overflow: hidden;
+$display-b: block;
+$display-f:flex;
+$align-items: center;
+$text-align: center;
+@mixin inputbox {
+    width: 311px;
+    height: 48px;
+    background: #F5F5F5;
+    border-radius: 8px;
+}
+@mixin input {
+    outline: none;
+    border: none;
+    width: 279px;
+    height: 22px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    line-height: 22px;
+    background-color: transparent;
+    color: #D6D6D6;
+}
+@mixin input1 {
+    outline: none;
+    border: none;
+    width: 227px;
+    height: 22px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    line-height: 22px;
+    background-color: transparent;
+    color: #D6D6D6;
+}

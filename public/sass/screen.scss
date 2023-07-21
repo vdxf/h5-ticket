@@ -1,0 +1,179 @@
+@import './all';
+$family:PingFangSC-Medium, PingFang SC;
+a {
+    text-decoration: none;
+    color: $color;
+}
+body {
+    width: $width;
+    height: $height;
+    margin: $margin;
+    position: relative;
+    .header-box {
+        width: $width;
+        height: 144px;
+        background: #EB1E23;
+        .login-top {
+            padding-top: 14px;
+            display: $display-f;
+            align-items: $align-items;
+            .time-box {
+                width: 54px;
+                height: 18px;
+                font: {
+                    size: 15px;
+                    family: SFProText-Semibold, SFProText;
+                    weight: 600;
+                }
+                color: $color;
+                line-height: 18px;
+                text-align: $text-align;
+                margin-left: 21px;
+            }
+            .signal {
+                margin-left: 215px;
+                width: 17px;
+                height: 11px;
+                img {
+                    display: $display-b;
+                    width: 100%;
+                    height: 100%;
+                    color: $color;
+                }
+            }
+            .wifi {
+                width: 15px;
+                height: 11px;
+                img {
+                    display: $display-b;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .electric {
+                width: 22px;
+                height: 11px;
+                img {
+                    display: $display-b;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .header-content {
+            width: 100%;
+            height: 24px;
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .merchant {
+                margin-left: 12px;
+                width: 90px;
+                height: 24px;
+                font: {
+                    size: 18px;
+                    family: $family;
+                    weight: 500;
+                }
+                color: $color;
+                line-height: 24px;
+            }
+            .salesman {
+                width: 205px;
+                height: 20px;
+                font: {
+                    size: 15px;
+                    family: $family;
+                    weight: 500;
+                }   
+                color: $color;
+                line-height: 20px;
+            }
+            img {
+                display: block;
+                width: 16px;
+                height: 16px;
+            }
+            .exit {
+                width: 28px;
+                height: 20px;
+                font-size: 14px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: #FFFFFF;
+                line-height: 20px;
+                margin-left: 4px;
+            }
+        } 
+        .header-bottom {
+            width: $width;
+            height: 60px;
+            margin-top: 10px;
+            background: #fff;
+            border-radius: 20px 20px 0px 0px;
+            display: flex;
+            align-items: center;
+            .input-box {
+                width: 291px;
+                height: 36px;
+                background: #F5F5F5;
+                border-radius: 8px;
+                margin-left: 12px;
+                display: flex;
+                align-items: center;
+                img {
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                    margin-left: 12px;
+                    margin-right: 8px;
+                }
+                input {
+                    @include input1;
+                }
+            }
+            img {
+                display:block;
+                width: 16px;
+                height: 16px;
+                margin-left: 12px;
+                margin-right: 4px;
+            }
+            .filter {
+                width: 28px;
+                height: 20px;
+                font-size: 14px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: #EB1E23;
+                line-height: 20px;
+            }
+
+        }
+    }
+    .content-box {
+        width: 100%;
+        height: 664px;
+        background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
+        border-radius: 20px 20px 0px 0px;
+        overflow: hidden;
+        img {
+            display: block;
+            width: 200px;
+            height: 120px;
+            margin: 0 auto;
+            margin-top: 181px;
+        }
+    }
+    .login-footer {
+        position: $position-a;
+        bottom: 9px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 134px;
+        height: 5px;
+        background: #000;
+        border-radius: 100px;
+    }
+}

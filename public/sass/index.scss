@@ -1,0 +1,184 @@
+@import './all';
+
+
+$background-color:#F5F5F5;
+
+.login-box {
+    width: $width;
+    height: $height;
+    background-color: $background-color;
+    margin: $margin;
+    position: $position-r;
+    overflow: $overflow;
+    .bg {
+        position: $position-a;
+        top: $top;
+        left:$left;
+        width: $width;
+        height: 380px;
+        background: url(../images/loginbgc.png) no-repeat;
+        background-size: 375px 380px;
+    }
+    .login-wrap {
+        position: $position-a;
+        width: $width;
+        height: $height;
+        .login-top {
+            padding-top: 14px;
+            display: $display-f;
+            align-items: $align-items;
+            .time-box {
+                width: 54px;
+                height: 18px;
+                font: {
+                    size: 15px;
+                    family: SFProText-Semibold, SFProText;
+                    weight: 600;
+                }
+                color: $color;
+                line-height: 18px;
+                text-align: $text-align;
+                margin-left: 21px;
+            }
+            .signal {
+                margin-left: 215px;
+                width: 17px;
+                height: 11px;
+                img {
+                    display: $display-b;
+                    width: 100%;
+                    height: 100%;
+                    color: $color;
+                }
+            }
+            .wifi {
+                width: 15px;
+                height: 11px;
+                img {
+                    display: $display-b;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .electric {
+                width: 22px;
+                height: 11px;
+                img {
+                    display: $display-b;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .login-content {
+            width: 351px;
+            height: 451px;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.08);
+            border-radius: 20px;
+            margin:$margin;
+            margin-top: 108px;
+            display: $display-f;
+            flex-direction: column;
+            align-items: $align-items;
+            .logo {
+                width: 80px;
+                height: 80px;
+                margin-top: -40px;
+                background: url(../images/logo2.png)no-repeat;
+                background-size: 80px 80px;
+            }
+            .login-inner {
+                width: 48px;
+                height: 33px;
+                font: {
+                    size: 24px;
+                    family: PingFangSC-Medium, PingFang SC;
+                    weight: 500;
+                }
+                color: #333333;
+                line-height: 33px;
+                margin: 40px 0;
+            }
+            .account {
+                margin-bottom: 20px;
+                color: #D6D6D6;
+                @include inputbox;
+                input {
+                    @include input;
+                    margin: 13px 16px;
+                }
+            }
+            .password {
+                margin-bottom: 28px;
+                color: #D6D6D6;
+                @include inputbox;
+                .password-box {
+                    position: $position-r;
+                    width: 279px;
+                    height: 22px;
+                    margin: 13px 16px;
+                    input {
+                        @include input;
+                    }
+                    i {
+                        position: $position-a;
+                        top: 50%;
+                        right: 0;
+                        transform: translateY(-50%);
+                        width: 16px;
+                        height: 16px;
+                        background: url(../images/eyeclose.png) no-repeat;
+                        background-size: 16px 16px;
+                    }
+                }
+            }
+            .login-button-box {
+                width: 311px;
+                height: 48px;
+                background: #F58287;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+                button {
+                    cursor: pointer;
+                    width: 287px;
+                    height: 22px;
+                    font: {
+                        size: 16px;
+                        family: PingFangSC-Semibold, PingFang SC;
+                        weight: 600;
+                    }
+                    background-color: transparent;
+                    border: none;
+                    color: $color;
+                    line-height: 22px;
+                }
+            }
+            .modify a {
+                width: 64px;
+                height: 22px;
+                font: {
+                    size: 16px;
+                    family: PingFangSC-Regular, PingFang SC;
+                    weight: 400;
+                }
+                color: #EB1E23;
+                line-height: 22px;
+                text-decoration: none;
+            }
+        }
+        .login-footer {
+            position: $position-a;
+            bottom: 9px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            background: #000;
+            border-radius: 100px;
+        }
+    }
+}

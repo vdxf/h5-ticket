@@ -1,0 +1,200 @@
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+body {
+  width: 375px;
+  height: 812px;
+  margin: 0 auto;
+  position: relative;
+}
+body .header-box {
+  width: 375px;
+  height: 144px;
+  background: #EB1E23;
+}
+body .header-box .login-top {
+  padding-top: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+body .header-box .login-top .time-box {
+  width: 54px;
+  height: 18px;
+  font-size: 15px;
+  font-family: SFProText-Semibold, SFProText;
+  font-weight: 600;
+  color: #fff;
+  line-height: 18px;
+  text-align: center;
+  margin-left: 21px;
+}
+body .header-box .login-top .signal {
+  margin-left: 215px;
+  width: 17px;
+  height: 11px;
+}
+body .header-box .login-top .signal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+body .header-box .login-top .wifi {
+  width: 15px;
+  height: 11px;
+}
+body .header-box .login-top .wifi img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body .header-box .login-top .electric {
+  width: 22px;
+  height: 11px;
+}
+body .header-box .login-top .electric img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body .header-box .header-content {
+  width: 100%;
+  height: 24px;
+  margin-top: 22px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+body .header-box .header-content .merchant {
+  margin-left: 12px;
+  width: 90px;
+  height: 24px;
+  font-size: 18px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  line-height: 24px;
+}
+body .header-box .header-content .salesman {
+  width: 205px;
+  height: 20px;
+  font-size: 15px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  line-height: 20px;
+}
+body .header-box .header-content img {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+body .header-box .header-content .exit {
+  width: 28px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 20px;
+  margin-left: 4px;
+}
+body .header-box .header-bottom {
+  width: 375px;
+  height: 60px;
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 20px 20px 0px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+body .header-box .header-bottom .input-box {
+  width: 291px;
+  height: 36px;
+  background: #F5F5F5;
+  border-radius: 8px;
+  margin-left: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+body .header-box .header-bottom .input-box img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin-left: 12px;
+  margin-right: 8px;
+}
+body .header-box .header-bottom .input-box input {
+  outline: none;
+  border: none;
+  width: 227px;
+  height: 22px;
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 22px;
+  background-color: transparent;
+  color: #D6D6D6;
+}
+body .header-box .header-bottom img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin-left: 12px;
+  margin-right: 4px;
+}
+body .header-box .header-bottom .filter {
+  width: 28px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #EB1E23;
+  line-height: 20px;
+}
+body .content-box {
+  width: 100%;
+  height: 664px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FAFAFA));
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
+  border-radius: 20px 20px 0px 0px;
+  overflow: hidden;
+}
+body .content-box img {
+  display: block;
+  width: 200px;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 181px;
+}
+body .login-footer {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  background: #000;
+  border-radius: 100px;
+}/*# sourceMappingURL=screen.css.map */
