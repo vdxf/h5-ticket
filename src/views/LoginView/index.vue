@@ -15,7 +15,7 @@
                 <div class="form-item">
                     <span>密码</span>
                     <input type="password" id="pwd" placeholder="请输入密码" v-model.trim="password"/>
-                    <img :src=" eye ? openeye : closeeye " alt="img" @click="handlePwd">
+                    <i class="eye-icon closed-eye" @click="handlePwd"></i>
                 </div>
             </div>
             <button class="c-button" @click="handleSubmit">登录</button>
@@ -32,22 +32,19 @@ export default {
             account: "",
             email: '',
             password: "",
-            eye: true,
-            openeye: require("@/assets/images/eyeclose.png"),
-            closeeye: require("@/assets/images/eyeopen.png"),
-
         };
     },
     methods: {
       handlePwd(){
         let input = document.getElementById('pwd');
+        let eye = document.querySelector(".eye-icon")
         if ( input.type === 'text' ) {
           input.type = 'password';
-          this.eye = true;
+          eye.className = "eye-icon closed-eye"
         }
         else {
           input.type = 'text';
-          this.eye = false;
+          eye.className = "eye-icon open-eye"
         }
       },
       email_blur() {
@@ -133,15 +130,22 @@ export default {
         font-size: j(16);
         color: #333;
     }
-    img{
+    .eye-icon {
         display: block;
         width: j(16);
         height: j(16);
         position: absolute;
-        top: j(56);
         right: j(16);
-
     }
+    .closed-eye {
+      background: url("@/assets/images/eyeclose.png") center center no-repeat;
+      background-size: j(16) j(16);
+    }
+    .open-eye {
+      background: url("@/assets/images/eyeopen.png") center center no-repeat;
+      background-size: j(16) j(16);
+    }
+
 }
 .c-button{
     margin-top: j(28);

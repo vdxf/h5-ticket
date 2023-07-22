@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-item">
                     密码<input type="password" id="pwd" placeholder="请输入密码" v-model.trim="password" required>
-                    <img :src=" eye ? openeye : closeeye " alt="img" @click="handlePwd">
+                    <i class="eye-icon closed-eye" @click="handlePwd"></i>
                 </div>
                 <div class="form-item">
                     邮箱验证码<input type="text" placeholder="请输入邮箱验证码" v-model.trim="captcha" required maxlength="6">
@@ -33,21 +33,19 @@
                 email:'2532499815@qq.com',
                 password: '',
                 captcha: '',
-                eye: true,
-                openeye: require("@/assets/images/eyeclose.png"),
-                closeeye: require("@/assets/images/eyeopen.png"),
             }
         },
         methods: {
             handlePwd(){
               let input = document.getElementById('pwd');
+              let eye = document.querySelector(".eye-icon")
               if ( input.type === 'text' ) {
                 input.type = 'password';
-                this.eye = true;
+                eye.className = "eye-icon closed-eye"
               }
               else {
                 input.type = 'text';
-                this.eye = false;
+                eye.className = "eye-icon open-eye"
               }
             },
             email_blur(){
@@ -108,14 +106,20 @@
         flex: 1;
         margin-left: j(80);
     }
-    img {
-        display: block;
-        width: j(16);
-        height: j(16);
-        position: absolute;
-        top: j(0);
-        right: 0;
-
+    .eye-icon {
+      display: block;
+      width: j(16);
+      height: j(16);
+      position: absolute;
+      right: j(16);
+    }
+    .closed-eye {
+      background: url("@/assets/images/eyeclose.png") center center no-repeat;
+      background-size: j(16) j(16);
+    }
+    .open-eye {
+      background: url("@/assets/images/eyeopen.png") center center no-repeat;
+      background-size: j(16) j(16);
     }
     button {
         position: absolute;
