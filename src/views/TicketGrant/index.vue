@@ -1,115 +1,160 @@
 <template>
-    <div class="ticket-grant">
+    <div class="c-view-wrap">
         <div class="c-card">
-            <h2>赣AJM999 &nbsp; 张卫国</h2>
-            <p>发券金额
-                <span>800元</span>
+            <div class="card-head">
+              <h1>赣AJM999 张卫国</h1>
+              <p>
+                发券金额
+                <span>800.00元</span>
                 (GF:300.00、CX:300.00)
-            </p>
-            <div class="form-box">
-                <div class="form-item">
-                    <span>￥500</span>
-                    <div class="threshold">
-                        <h3>无使用门槛</h3>
-                        <p>有效期至：2023/07/10 14:00:00</p>
+              </p>
+            </div>
+            <div class="coupon-group">
+                <div class="coupon-item">
+                  <div class="coupon-item-value">
+                    <div class="coupon-item-amount">
+                      <span>￥</span>
+                      <strong>500</strong>
                     </div>
-                </div>
-                <div class="form-item">
-                    <span>￥300</span>
-                    <div class="threshold">
-                        <h3>无使用门槛</h3>
-                        <p>有效期至：2023/07/10 14:00:00</p>
-                    </div>
+                  </div>
+                  <div class="coupon-item-bar">
+
+                  </div>
+                  <div class="coupon-item-info">
+                    <h3>无使用门槛</h3>
+                    <p>有效期至：2023/07/10 14:00:00</p>
+                  </div>
                 </div>
             </div>
-            <img src="@/assets/images/grant.jpg" alt="grant">
-            <p>扫码领取或长按二维码保存</p>
+            <div class="qr-code-box">
+              <img src="@/assets/images/grant.jpg" alt="grant">
+              <span>扫码领取或长按二维码保存</span>
+            </div>
         </div>
     </div>
 </template>
 <script>
-export default {
-    name: 'TicketGrant',
-}
+    export default {
+    }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/sass/define.scss';
-.ticket-grant {
-    background: #FAFAFA;
-    padding-top: j(116);
-    padding-bottom: j(100);
-    img {
-        display: block;
-        margin-bottom: j(12);
-    }
-}
 .c-card {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    padding: j(28) j(20);
-    background: #FFFFFF;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.08);
-    border-radius: 20px;
-    h2 {
-        font-size: j(20);
-        font-weight: 500;
-        color: #333333;
-        line-height: j(28);
-        margin-bottom: j(13);
-    }
-    p {
-        font-size: j(14);
-        color: #999999;
-        line-height: j(20);
-        span {
-            font-size: j(16);
-            font-weight: 500;
-            color: #EB1E23;
-            line-height: j(22);
-        }
-    }
+  padding: j(32) j(16);
 }
-.form-box {
-    width: j(310);
-    margin: j(28) 0;
-    display: flex;
-    flex-direction: column;
-}
-.form-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: j(84);
-    background: #FFF0F0;
-    border-radius: j(8);
-    &:first-child {
-        margin-bottom: j(16);
-    }
+.card-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    font-size: j(20);
+    font-weight: 600;
+    line-height: j(28);
+    color: #333;
+    text-align: center;
+  }
+  p {
+    margin-top: j(10);
+    color: #999;
+    text-align: center;
+    font-size: j(16);
+    white-space: nowrap;
     span {
-        width: j(100);
-        height: j(84);
-        font-size: j(31);
-        font-weight: bold;
-        color: #EB1E23;
-        line-height: j(84);
-        text-align: center;
-        border-right: 1px dashed #FFB9B9;
+      font-weight: bold;
+      color: #eb1e23;
     }
+  }
 }
-.threshold {
-    margin-left: j(16);    
-    h3 {
-        font-size: j(16);
-        font-weight: 500;
-        color: #EB1E23;
-        line-height: j(22);
-    }
-    p {
-        font-size: j(12);
-        color: #EB1E23;
-        line-height: j(16);
-    }
+.coupon-group {
+  margin-top: j(28);
+}
+.coupon-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: #eb1e23;
+  background-color: #fff0f0;
+  height: j(84);
+  border-radius: j(8);
+  max-width: j(350);
+  min-width: j(310);
+  overflow: hidden;
+}
+.coupon-item-value {
+  width: j(100);
+  height: j(35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.coupon-item-amount {
+  font-weight: 700;
+  box-sizing: border-box;
+  span {
+    font-size: j(16);
+    margin-top: j(6);
+  }
+  strong {
+    margin-left: j(2);
+    font-size: j(32);
+  }
+}
+.coupon-item-bar {
+  position: relative;
+  height: 100%;
+  border-left: 1px dashed #ffb9b9;
+  &::before {
+    content: "";
+    position: absolute;
+    top: j(-6);
+    left: j(-6);
+    width: j(12);
+    height: j(12);
+    background-color: #fff;
+    border-radius: 50%;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: j(-6);
+    left: j(-6);
+    width: j(12);
+    height: j(12);
+    background-color: #fff;
+    border-radius: 50%;
+  }
+}
+.coupon-item-info {
+  padding: 0 j(12);
+  flex: 1;
+  h3 {
+    font-size: j(16);
+    font-weight: 600;
+    line-height: j(22);
+  }
+  p {
+    margin-top: j(4);
+    font-size: j(10);
+    line-height: j(16);
+    white-space: nowrap;
+  }
+}
+.qr-code-box {
+  margin-top: j(32);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    display: block;
+    width: j(160);
+    height: j(160);
+    margin-bottom: j(12);
+  }
+  span {
+    font-size: j(14);
+    line-height: j(20);
+    color: #999;
+  }
 }
 </style>

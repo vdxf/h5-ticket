@@ -53,7 +53,7 @@
         <div class="grant-card" @click="handleUnclaimed">
             <div class="title">
                 <span> 赣A*****(张某华) </span>
-                <div class="grant state">待发放</div>
+                <div class="grant state">待领取</div>
             </div>
             <div class="form-item">
                 <span>券次批号</span>  
@@ -70,6 +70,10 @@
             <div class="form-item">
                 <span>创建时间</span>  
                 <p>2023/07/01 14:00:00</p>                  
+            </div>
+            <div class="ticket-button-group">
+                <button class="grant" @click.stop="handleGranTicket">发放</button>
+                <button class="cancel" @click.stop="handleCancel">作废</button>
             </div>
         </div>
         <div class="part-card" @click="handlePartial">
@@ -123,10 +127,20 @@
             <h2>温馨提示</h2>
             <p>{车牌号}本次补发券面额：100元。</p>
             <div class="button-box">
-                <button class="cancle-button" @click="isPopup = false">取消</button>
-                <button class="grant-button">补发</button>
+                <button class="cancle-button" @click.stop="isPopup = false">取消</button>
+                <button class="grant-button" @click.stop="handleReissue">补发</button>
             </div>
         </div>
+    </div>
+    <div class="popup-view" v-show="isCancel" @click="isCancel = false">
+      <div class="content" @click.stop="$emit('null')">
+        <h2>温馨提示</h2>
+        <p>确认执行作废操作</p>
+        <div class="button-box">
+          <button class="cancle-button" @click.stop="isCancel = false">取消</button>
+          <button class="grant-button" @click.stop="isCancel = false">确认</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -136,10 +150,20 @@
         data () {
             return {
                 isFilter: false, //筛选
-                isPopup: false  //弹窗
+                isPopup: false,  //弹窗
+                isCancel: false, //作废弹窗
             }
         },
         methods: {
+          handleReissue(){
+            this.$router.push('ticketcreate')
+          },
+            handleCancel(){
+                this.isCancel = true
+            },
+            handleGranTicket(){
+              this.$router.push('/ticketgrant')
+            },
             handleUnclaimed(){
                 this.$router.push('/ticketunclaimed')
             },
@@ -258,8 +282,9 @@
     }
 }
 .home-list {
+    background-color: #f6f3f3;
     box-sizing: border-box;
-    padding: 0 j(12);
+    padding: j(12) j(12) 0;
 }
 .grant-card,.part-card,.voided-card {
     width: j(351);
@@ -272,7 +297,7 @@
     button {
         width: 100%;
         height: j(32);
-        border-radius: j(8);
+        border-radius: j(4);
         border: 1px solid #F58287;
         background-color: transparent;
         font-size: j(14);
@@ -325,6 +350,21 @@
     &:last-child {
         margin-bottom: 0;
     }
+}
+.ticket-button-group {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-top: j(12);
+  .grant {
+    border:1px solid #ff976a;;
+    color: #ff976a;
+  }
+  .cancel {
+    margin-left: j(10);
+    border:1px solid #eb1e23;;
+    color: #eb1e23
+  }
 }
 
 // 弹窗页面样式
