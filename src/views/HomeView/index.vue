@@ -156,7 +156,7 @@
         </div>
       </div>
     </div>
-    <i class="image-add">+</i>
+    <i class="image-add" @click="handleCreateImage">+</i>
   </div>
 </template>
 
@@ -170,6 +170,9 @@
             }
         },
         methods: {
+          handleCreateImage(){
+            this.$router.push('/imagecreate')
+          },
           handleReissue(){
             this.$router.push('ticketcreate')
           },

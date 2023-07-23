@@ -27,3 +27,14 @@ export const doLogin = (data = {}) => {
         data,
     })
 }
+//文件上传
+export const doFile = ( fromData, Authorization ) => {
+    return request({
+        url: '/api/v1/common/upload/image',
+        method: 'POST',
+        headers: {'Authorization': Authorization},
+        body: fromData,
+    })
+}
+
+
