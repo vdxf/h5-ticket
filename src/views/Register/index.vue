@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-item">
                     密码<input type="password" id="pwd" placeholder="请输入密码" v-model.trim="password" required>
-                    <i class="eye-icon closed-eye" @click="handlePwd"></i>
+                  <i class="eye-icon" :class="[type === 'password' ? 'closed-eye' :'open-eye']" @click="type = type === 'password' ? 'text' :'password'"></i>
                 </div>
                 <div class="form-item">
                     邮箱验证码<input type="text" placeholder="请输入邮箱验证码" v-model.trim="captcha" required maxlength="6">
@@ -29,6 +29,7 @@
     export default {
         data(){
             return {
+                type: 'password',
                 nickname: '',
                 email:'2532499815@qq.com',
                 password: '',
@@ -36,18 +37,6 @@
             }
         },
         methods: {
-            handlePwd(){
-              let input = document.getElementById('pwd');
-              let eye = document.querySelector(".eye-icon")
-              if ( input.type === 'text' ) {
-                input.type = 'password';
-                eye.className = "eye-icon closed-eye"
-              }
-              else {
-                input.type = 'text';
-                eye.className = "eye-icon open-eye"
-              }
-            },
             email_blur(){
                 let verify = /^[A-Za-z0-9_-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$/  
                 if (verify.test(this.email) === false){

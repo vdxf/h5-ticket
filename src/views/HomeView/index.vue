@@ -50,6 +50,20 @@
         </div>
      </div>
      <div class="home-list">
+         <div class="image-card">
+           <div class="image-detail">
+             <img src="@/assets/images/loginbgc.png" alt="img">
+             <div class="detail-content">
+                  <span>images.title</span>
+                  <span>images.time</span>
+                  <span>images.detail</span>
+             </div>
+           </div>
+           <div class="image-button-group">
+             <button>更改</button>
+             <button>删除</button>
+           </div>
+         </div>
         <div class="grant-card" @click="handleUnclaimed">
             <div class="title">
                 <span> 赣A*****(张某华) </span>
@@ -142,6 +156,7 @@
         </div>
       </div>
     </div>
+    <i class="image-add">+</i>
   </div>
 </template>
 
@@ -185,6 +200,24 @@
 
 <style lang="scss" scoped>
 @import '@/assets/sass/define.scss';
+.home-view {
+  position: relative;
+  .image-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: j(16);
+    bottom: j(46);
+    width: j(44);
+    height: j(44);
+    background-color: #EB1E23;
+    box-shadow: 0 0 j(10) j(5) #0003;
+    border-radius: 50%;
+    color: #fff;
+    font-size: j(14);
+  }
+}
 .home-nav {
     background: #EB1E23;
     position: relative;
@@ -286,7 +319,7 @@
     box-sizing: border-box;
     padding: j(12) j(12) 0;
 }
-.grant-card,.part-card,.voided-card {
+.grant-card,.part-card,.voided-card,.image-card {
     width: j(351);
     background: #FFFFFF;
     box-shadow: 0px 0px j(4) 0px rgba(0,0,0,0.08);
@@ -303,6 +336,38 @@
         font-size: j(14);
         color: #EB1E23;
     }
+}
+.image-card {
+  display: flex;
+  flex-direction: column;
+}
+.image-detail {
+  display: flex;
+  align-items: center;
+  img {
+    display: block;
+    width: j(100);
+    height: j(100);
+    margin-right: j(10);
+  }
+}
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  span {
+      font-size: j(16);
+      line-height: j(32);
+    text-align: right;
+      margin-bottom: j(10);
+  }
+}
+.image-button-group {
+  display: flex;
+  margin-top: j(20);
+  button:last-child {
+    margin-left: j(10);
+  }
 }
 .title {
     display: flex;

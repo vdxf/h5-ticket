@@ -3,22 +3,21 @@
         <div class="c-card">
             <img src="@/assets/images/logo2.png" alt="logo">
             <h1>登录</h1>
+
             <div class="form-box">
                 <div class="form-item">
-                    <span>账号</span>
-                    <input type="text" placeholder="请输入账号" v-model.trim="account"/>
-                </div>
-                <div class="form-item">
                     <span>邮箱</span>
-                    <input type="text" placeholder="请输入邮箱" v-model.trim="email" @blur="email_blur"/>
+                    <input type="text" placeholder="请输入邮箱" v-model.trim="email" @blur="emailBlur"/>
                 </div>
                 <div class="form-item">
                     <span>密码</span>
-                    <input type="password" id="pwd" placeholder="请输入密码" v-model.trim="password"/>
-                    <i class="eye-icon closed-eye" @click="handlePwd"></i>
+                    <input :type="type" id="pwd" placeholder="请输入密码" v-model.trim="password"/>
+                    <i class="eye-icon" :class="[type === 'password' ? 'closed-eye' :'open-eye']" @click="type = type === 'password' ? 'text' :'password'"></i>
                 </div>
             </div>
+
             <button class="c-button" @click="handleSubmit">登录</button>
+
             <router-link class="c-button outline" to="/register">注册账号</router-link>
         </div>
     </div>
@@ -29,25 +28,13 @@ import {doLogin} from '@/api'
 export default {
     data() {
         return {
-            account: "",
+            type: 'password',
             email: '',
             password: "",
         };
     },
     methods: {
-      handlePwd(){
-        let input = document.getElementById('pwd');
-        let eye = document.querySelector(".eye-icon")
-        if ( input.type === 'text' ) {
-          input.type = 'password';
-          eye.className = "eye-icon closed-eye"
-        }
-        else {
-          input.type = 'text';
-          eye.className = "eye-icon open-eye"
-        }
-      },
-      email_blur() {
+      emailBlur() {
         let verify = /^[A-Za-z0-9_-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$/
         if (verify.test(this.email) === false){
           alert('邮箱格式错误，请重新输入')
@@ -58,7 +45,7 @@ export default {
           const { email, password} = this
           doLogin({ email, password }).then(result => {
             this.$router.push('/')
-            console.log(result)
+            window.localStorage.setItem('token', result.data.data.token)
           }).catch(error => {
             alert(error.response.data.msg)
           })
