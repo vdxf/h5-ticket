@@ -7,13 +7,17 @@
           <input type="file" @change="handleFiles">
         </label>
         <div class="image-title">
-          <input type="text" placeholder="请输入图片的标题">
+          <input type="text" placeholder="请输入图片的标题" v-model="title">
         </div>
         <div class="image-button-group">
-          <button>public</button>
-          <button>private</button>
+          <label>
+            <input type="radio" id="public" name="image" value="public" v-model="type" @change="handleType">public
+          </label>
+          <label>
+            <input type="radio" id="private" name="image" value="private" v-model="type" @change="handleType">private
+          </label>
         </div>
-        <textarea class="picture-detail" style="resize: none" rows="4" placeholder=" 图片详细信息">
+        <textarea class="picture-detail" style="resize: none" rows="4" placeholder=" 图片详细信息" v-model="description">
 
         </textarea>
         <button type="submit" class="c-button" @click="handleUploadImage">提交</button>
@@ -23,20 +27,23 @@
 </template>
 
 <script>
-import {doFile} from "@/api";
+import {doFile, doGain} from "@/api";
 
   export default  {
     data(){
       return {
+        type: '',
+        title: '',
+        description: '',
+        fileId: '',
         files: '',
       }
     },
     methods:{
+      handleType(){
+      },
       handleFiles(event){
         this.files = event.target.files
-        // console.log(this.files[0])
-      },
-      handleUploadImage(){
         let formData = new FormData();
         formData.append('file', this.files[0]);
 
@@ -44,14 +51,25 @@ import {doFile} from "@/api";
         let Authorization = 'Bearer ' + token
 
         doFile( formData, Authorization ).then(result => {
+          this.fileId = result.data.data.id
+        }).catch(error => {
+          alert(error.response.data.msg)
+        })
+      },
+
+      handleUploadImage(){
+        let token = window.localStorage.getItem('token')
+        let Authorization = 'Bearer ' + token
+        const { title, description, type, fileId } = this
+        doGain( { title, description, type, fileId }, Authorization).then(result => {
+          this.$router.push('/')
           console.log(result)
         }).catch(error => {
-          console.log(formData.get('file'))
+          console.dir(error)
           alert(error.response.data.msg)
         })
       }
-
-    }
+    },
   }
 </script>
 
@@ -88,23 +106,12 @@ import {doFile} from "@/api";
 }
 .image-button-group {
   display: flex;
+  align-items: center;
   height: j(40);
   flex-direction: row;
   margin-bottom: j(20);
-  button {
-    width: 50%;
-    height: j(40);
-    border: none;
+  input {
     background-color: transparent;
-    &:first-child {
-      border: 1px solid #4cae4c;
-      color: #4cae4c;
-    }
-    &:last-child {
-      border: 1px solid #761c19;
-      color: #761c19;
-      margin-left: j(10);
-    }
   }
 }
 .picture-detail {

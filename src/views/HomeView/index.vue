@@ -50,20 +50,22 @@
         </div>
      </div>
      <div class="home-list">
-         <div class="image-card">
-           <div class="image-detail">
-             <img src="@/assets/images/loginbgc.png" alt="img">
-             <div class="detail-content">
-                  <span>images.title</span>
-                  <span>images.time</span>
-                  <span>images.detail</span>
+         <ul class="image-card">
+           <li v-for="imgObj in imageList" :key="imgObj.id" @click="handleImageDetail(imgObj.id)">
+             <div class="image-detail">
+               <img :src="imageUrl(imgObj.file.filepath)" alt="img">
+               <div class="detail-content">
+                 <span>{{imgObj.title}}</span>
+                 <span>{{imgObj.updatedAt}}</span>
+                 <span>{{imgObj.description}}</span>
+               </div>
              </div>
-           </div>
-           <div class="image-button-group">
-             <button>更改</button>
-             <button>删除</button>
-           </div>
-         </div>
+             <div class="image-button-group">
+               <button>更改</button>
+               <button>删除</button>
+             </div>
+           </li>
+         </ul>
         <div class="grant-card" @click="handleUnclaimed">
             <div class="title">
                 <span> 赣A*****(张某华) </span>
@@ -161,15 +163,24 @@
 </template>
 
 <script>
+    import {doTabulation} from "@/api";
+
     export default {
         data () {
             return {
+                imageList: [],
                 isFilter: false, //筛选
                 isPopup: false,  //弹窗
                 isCancel: false, //作废弹窗
             }
         },
         methods: {
+          imageUrl(filepath){
+            return ("https://img.daysnap.cn/api/"+filepath)
+          },
+          handleImageDetail(id){
+            console.log(id)
+          },
           handleCreateImage(){
             this.$router.push('/imagecreate')
           },
@@ -198,6 +209,20 @@
                 this.isFilter = !this.isFilter
             },
         },
+        mounted() {
+
+          let token = window.localStorage.getItem('token')
+          let Authorization = 'Bearer ' + token
+
+          doTabulation(Authorization).then(result => {
+            // console.log(result)
+            this.imageList = result.data.data.list
+            console.log(this.imageList)
+          }).catch(error => {
+            console.dir(error)
+            alert(error.response.data.msg)
+          })
+        }
     }
 </script>
 

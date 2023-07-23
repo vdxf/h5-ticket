@@ -33,8 +33,28 @@ export const doFile = ( fromData, Authorization ) => {
         url: '/api/v1/common/upload/image',
         method: 'POST',
         headers: {'Authorization': Authorization},
-        body: fromData,
+        data: fromData,
     })
 }
+
+// 创建图片
+export const doGain = ( data,Authorization ) => {
+    return request({
+        url: '/api/v1/picture',
+        method: 'POST',
+        headers: {'Authorization': Authorization},
+        data,
+    })
+}
+
+//获取图片列表
+export const doTabulation = (Authorization ) => {
+    return request({
+        url: '/api/v1/picture?current=2&length=10',
+        method: 'GET',
+        headers: {'Authorization': Authorization},
+    })
+}
+
 
 

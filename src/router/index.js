@@ -34,7 +34,20 @@ const router = new VueRouter({
 })
 
 // 登录权限判断
-
+router.beforeEach((to,from,next) => {
+    if(to.path === '/login') {
+        return next()
+    }
+    else {
+        const token = window.localStorage.getItem('token')
+        if (!token){
+            return next('/login')
+        }
+        else {
+            next()
+        }
+    }
+})
 router.afterEach((to, from) => {
     const { title } = to.meta || {}
     document.title = title || '立减金'
