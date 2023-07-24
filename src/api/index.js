@@ -56,5 +56,30 @@ export const doTabulation = (Authorization ) => {
     })
 }
 
+//更新
+export const doUpdata = (data = {},id,Authorization ) => {
+    return request({
+        url:`/api/v1/picture/${id}`,
+        method: 'PATCH',
+        headers: {'Authorization': Authorization},
+        data,
+    })
+}
 
+//删除
+export const doDelete = (id,Authorization ) => {
+    return request({
+        url: `/api/v1/picture/${id}`,
+        method: 'DELETE',
+        headers: {'Authorization': Authorization},
+    })
+}
 
+//详情
+export const doDetail = (id,Authorization ) => {
+    return request({
+        url: `/api/v1/picture/${id}`,
+        method: 'GET',
+        headers: {'Authorization': Authorization},
+    })
+}

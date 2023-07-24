@@ -61,11 +61,30 @@
                </div>
              </div>
              <div class="image-button-group">
-               <button>更改</button>
-               <button>删除</button>
+               <button @click.stop="handleUpdataImage(imgObj.id,imgObj.file.id)">更新</button>
+               <button @click.stop="handleDeleteImage(imgObj.id)">删除</button>
              </div>
            </li>
          </ul>
+       <div class="image-update" v-show="isUpdate" @click="isUpdate = false">
+         <div class="image-content" @click.stop="$emit('null')">
+           <div class="image-title" >
+             <input type="text" placeholder="请输入图片的标题" v-model="title">
+           </div>
+           <div class="image-button-group">
+             <label>
+               <input type="radio" id="public" name="image" value="public" v-model="type" @change="handleType">public
+             </label>
+             <label>
+               <input type="radio" id="private" name="image" value="private" v-model="type" @change="handleType">private
+             </label>
+           </div>
+           <textarea class="picture-detail" style="resize: none" rows="4" placeholder=" 图片详细信息" v-model="description">
+
+          </textarea>
+           <button type="submit" class="c-button" @click.stop="handleUpdata">更新</button>
+         </div>
+       </div>
         <div class="grant-card" @click="handleUnclaimed">
             <div class="title">
                 <span> 赣A*****(张某华) </span>
@@ -163,23 +182,74 @@
 </template>
 
 <script>
-    import {doTabulation} from "@/api";
+import {doDelete, doTabulation, doUpdata} from "@/api";
 
     export default {
         data () {
             return {
                 imageList: [],
+                type: '',
+                title: '',
+                description: '',
+                isUpdate: false,
                 isFilter: false, //筛选
                 isPopup: false,  //弹窗
                 isCancel: false, //作废弹窗
+                id: '',
+                fileid: '',
             }
         },
         methods: {
+
+          // 更新图片
+          handleUpdata(){
+            this.isUpdate = true
+            const { title, type, description, fileid, id } = this
+
+            let token = window.localStorage.getItem('token')
+            let Authorization = 'Bearer ' + token
+
+            // let url = `/api/v1/picture/${id}`
+
+            doUpdata( {title, type, description, fileid,}, id ,Authorization).then(result => {
+              console.log(result)
+            }).catch(error => {
+              console.dir(error)
+            })
+          },
+          handleType(){
+          },
+          handleUpdataImage(id,fileid){
+            this.id = id
+            this.fileid = fileid
+            this.isUpdate = true
+          },
+
+          // 删除图片
+          handleDeleteImage(id){
+            let token = window.localStorage.getItem('token')
+            let Authorization = 'Bearer ' + token
+
+            doDelete(id,Authorization).then(result => {
+              console.log(result)
+            }).catch(error => {
+              console.dir(error)
+            })
+          },
+
+          //获取图片url路径
           imageUrl(filepath){
             return ("https://img.daysnap.cn/api/"+filepath)
           },
+
+          // 跳转图片详情页面
           handleImageDetail(id){
-            console.log(id)
+            this.$router.push({
+              path: '/imagedetail',
+              query: {
+                id: id
+              }
+            })
           },
           handleCreateImage(){
             this.$router.push('/imagecreate')
@@ -462,7 +532,7 @@
 
 // 弹窗页面样式
 
-.popup-view {
+.popup-view,.image-update {
     position:fixed;
     top:0;
     left: 0;
@@ -471,6 +541,45 @@
     background: rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
+}
+.image-content {
+  width: j(320);
+  margin: 0 auto;
+  background: #FFFFFF;
+  border-radius: j(4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: j(20) j(10);
+}
+.image-title {
+  padding: j(10);
+  border: 1px solid #000000;
+  margin-top: j(20);
+  margin-bottom: j(20);
+  border-radius: j(4);
+  display: flex;
+  input {
+    flex: 1;
+    outline: none;
+  }
+}
+.image-button-group {
+  display: flex;
+  align-items: center;
+  height: j(40);
+  flex-direction: row;
+  margin-bottom: j(20);
+  input {
+    background-color: transparent;
+  }
+}
+.picture-detail {
+  border: 1px solid #333;
+  border-radius: j(8);
+  outline: none;
+  margin-bottom: j(20);
 }
 .content {
     width: j(320);

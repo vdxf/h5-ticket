@@ -27,6 +27,13 @@ const routes = [
         component: () => import('@/views/ImageCreate'),
         meta: { title: '创建相片' },
     },
+    {
+        path: "/imagedetail",
+        name: 'ImageDetail',
+        component: () => import('@/views/ImageDetail'),
+        meta: { title: '相片详情' },
+    },
+
 ]
 
 const router = new VueRouter({
