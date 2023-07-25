@@ -83,3 +83,94 @@ export const doDetail = (id,Authorization ) => {
         headers: {'Authorization': Authorization},
     })
 }
+
+// 我的收藏
+export const doCollectList = () => {
+    return request({
+        url:`/api/v1/collect?current=2&length=10`,
+        method: 'GET',
+    })
+}
+
+//更新用户信息
+export const doUpdateUserInformation = (data = {},Authorization ) => {
+    return request({
+        url:`/api/v1/user/profile`,
+        method: 'PATCH',
+        headers: {'Authorization': Authorization},
+        data,
+    })
+}
+
+//用户列表
+export const doUserList = (Authorization ) => {
+    return request({
+        url:`/api/v1/user?current=10&length=10`,
+        method: 'GET',
+        headers: {'Authorization': Authorization},
+    })
+}
+
+//用户详情
+export const doUserDetails = (id,Authorization ) => {
+    return request({
+        url:`/api/v1/user/${id}`,
+        method: 'GET',
+        headers: {'Authorization': Authorization},
+    })
+}
+
+//修改密码
+export const doUpdatePassword = (data = {},Authorization ) => {
+    return request({
+        url:`/api/v1/user/update-password`,
+        method: 'PATCH',
+        headers: {'Authorization': Authorization},
+        data,
+    })
+}
+
+//重置密码
+export const doResetPassword = (data = {}) => {
+    return request({
+        url:`/api/v1/user/reset-password`,
+        method: 'PATCH',
+        data,
+    })
+}
+
+// 点赞
+export const doLike = (pictureId) => {
+    return request({
+        url:`/api/v1/like`,
+        method: 'POST',
+        data: pictureId,
+    })
+}
+
+// 取消点赞
+export const doCancellike = (pictureId) => {
+    return request({
+        url:`/api/v1/like`,
+        method: 'DELETE',
+        data: pictureId,
+    })
+}
+
+// 收藏
+export const doCollect = (pictureId) => {
+    return request({
+        url:`/api/v1/collect`,
+        method: 'POST',
+        data: pictureId,
+    })
+}
+
+// 取消收藏
+export const doCancelCollect = (pictureId) => {
+    return request({
+        url:`/api/v1/collect`,
+        method: 'DELETE',
+        data: pictureId,
+    })
+}

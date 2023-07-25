@@ -62,7 +62,7 @@ import {doFile, doGain} from "@/api";
         let Authorization = 'Bearer ' + token
         const { title, description, type, fileId } = this
         doGain( { title, description, type, fileId }, Authorization).then(result => {
-          this.$router.push('/')
+          this.$router.push('/home')
           console.log(result)
         }).catch(error => {
           console.dir(error)

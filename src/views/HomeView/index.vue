@@ -177,7 +177,12 @@
         </div>
       </div>
     </div>
-    <i class="image-add" @click="handleCreateImage">+</i>
+
+    <div class="nav-button-group">
+      <button class="home-button" :class="{'active' : active === 1}" @click="handleHome">首页</button>
+      <button class="user-button" :class="{'active' : active === 2}" @click="handleUser">用户</button>
+      <i class="image-add" @click="handleCreateImage">+</i>
+    </div>
   </div>
 </template>
 
@@ -197,9 +202,18 @@ import {doDelete, doTabulation, doUpdata} from "@/api";
                 isCancel: false, //作废弹窗
                 id: '',
                 fileid: '',
+                active:1,
             }
         },
         methods: {
+          handleHome(){
+            this.active = 1
+            this.$router.push('/home')
+          },
+          handleUser(){
+            this.active = 2
+            this.$router.push('/userview')
+          },
 
           // 更新图片
           handleUpdata(){
@@ -300,21 +314,7 @@ import {doDelete, doTabulation, doUpdata} from "@/api";
 @import '@/assets/sass/define.scss';
 .home-view {
   position: relative;
-  .image-add {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: j(16);
-    bottom: j(46);
-    width: j(44);
-    height: j(44);
-    background-color: #EB1E23;
-    box-shadow: 0 0 j(10) j(5) #0003;
-    border-radius: 50%;
-    color: #fff;
-    font-size: j(14);
-  }
+
 }
 .home-nav {
     background: #EB1E23;
@@ -552,6 +552,9 @@ import {doDelete, doTabulation, doUpdata} from "@/api";
   align-items: center;
   box-sizing: border-box;
   padding: j(20) j(10);
+  button {
+    width: 80%;
+  }
 }
 .image-title {
   padding: j(10);
@@ -714,5 +717,58 @@ import {doDelete, doTabulation, doUpdata} from "@/api";
     font-weight: 600;
     color: #FFFFFF;
     line-height: j(16);
+}
+.nav-button-group {
+  height: j(40);
+  background-color: #ddd;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .home-button:after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    width: j(48);
+    height: j(48);
+    background-color: #fff;
+    right: j(166);
+    bottom: j(18);
+  }
+  .user-button:before {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    width: j(48);
+    height: j(48);
+    background-color: #fff;
+    left: j(166);
+    bottom: j(18);
+  }
+  button {
+    width: 50%;
+    height: 100%;
+    border: none;
+  }
+  .active {
+    background-color: blue;
+    color: #fff;
+    font-weight: 500;
+  }
+  .image-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: j(166);
+    bottom: j(20);
+    width: j(44);
+    height: j(44);
+    background-color: #EB1E23;
+    box-shadow: 0 0 j(10) j(5) #0003;
+    border-radius: 50%;
+    color: #fff;
+    font-size: j(14);
+  }
 }
 </style>

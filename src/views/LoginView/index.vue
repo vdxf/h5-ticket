@@ -44,7 +44,7 @@ export default {
         handleSubmit() {
           const { email, password} = this
           doLogin({ email, password }).then(result => {
-            this.$router.push('/')
+            this.$router.push('/home')
             window.localStorage.setItem('token', result.data.data.token)
           }).catch(error => {
             alert(error.response.data.msg)

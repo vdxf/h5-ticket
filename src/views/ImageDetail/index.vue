@@ -12,13 +12,23 @@
           <p>更新时间：{{detailList.updatedAt}}</p>
           <p>图片ID：{{detailList.id}}</p>
           <p>图片大小： {{detailList.file.size}} kb</p>
+          <div class="button-group">
+            <div class="like">
+              <button @click.stop="handleLike">点赞</button>
+              <button @click.stop="handleCancelLike">取消点赞</button>
+            </div>
+            <div class="collect">
+              <button @click.stop="handleCollect">收藏</button>
+              <button @click.stop="handleCancelCollect">取消收藏</button>
+            </div>
+          </div>
         </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {doDetail} from "@/api";
+import {doCancelCollect, doCancellike, doCollect, doDetail, doLike} from "@/api";
 
   export default {
       data(){
@@ -26,6 +36,40 @@
           detailList: [],
           id: '',
         }
+      },
+      methods: {
+        //点赞
+        handleLike(){
+          doLike(this.id).then((result) => {
+            console.log(result)
+          }).catch((error) => {
+            alert(error.response.data.msg)
+          })
+        },
+        // 取消点赞
+        handleCancelLike(){
+          doCancellike(this.id).then((result) => {
+            console.log(result)
+          }).catch((error) => {
+            alert(error.response.data.msg)
+          })
+        },
+        //收藏
+        handleCollect(){
+          doCollect(this.id).then((result) => {
+            console.log(result)
+          }).catch((error) => {
+            alert(error.response.data.msg)
+          })
+        },
+        //取消收藏
+        handleCancelCollect(){
+          doCancelCollect(this.id).then((result) => {
+            console.log(result)
+          }).catch((error) => {
+            alert(error.response.data.msg)
+          })
+        },
       },
       mounted(){
         this.id = this.$route.query.id
@@ -36,7 +80,6 @@
         const {id} = this
         doDetail(id,Authorization).then(result => {
           this.detailList = result.data.data
-          console.log(this.detailList)
         }).catch(error => {
           console.dir(error)
         })
@@ -52,6 +95,22 @@
 .detail-group {
   p {
     margin: j(10) 0;
+  }
+}
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: j(20);
+  .like {
+    button {
+      margin-right: j(10);
+    }
+  }
+  .collect {
+    button {
+      margin-left: j(10);
+    }
   }
 }
 </style>
