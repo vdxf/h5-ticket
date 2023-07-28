@@ -11,4 +11,12 @@
     height: 100vh;
     overflow-y: auto;
   }
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
+  }
 </style>

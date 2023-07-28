@@ -1,4 +1,3 @@
-
 import request from '@/utils/request'
 
 // 发送邮件
@@ -18,8 +17,8 @@ export const doRegister = (data = {}) => {
         data,
     })
 }
-// 登录
 
+// 登录
 export const doLogin = (data = {}) => {
     return request({
         url: '/api/v1/auth/signin',
@@ -27,8 +26,9 @@ export const doLogin = (data = {}) => {
         data,
     })
 }
+
 //文件上传
-export const doFile = ( fromData, Authorization ) => {
+export const doFile = (fromData, Authorization) => {
     return request({
         url: '/api/v1/common/upload/image',
         method: 'POST',
@@ -38,7 +38,7 @@ export const doFile = ( fromData, Authorization ) => {
 }
 
 // 创建图片
-export const doGain = ( data,Authorization ) => {
+export const doGain = (data, Authorization) => {
     return request({
         url: '/api/v1/picture',
         method: 'POST',
@@ -48,26 +48,25 @@ export const doGain = ( data,Authorization ) => {
 }
 
 //获取图片列表
-export const doTabulation = (Authorization ) => {
+export const doTabulation = (data) => {
     return request({
-        url: '/api/v1/picture?current=2&length=10',
+        url: `/api/v1/picture`,
         method: 'GET',
-        headers: {'Authorization': Authorization},
+        params: data
     })
 }
 
 //更新
-export const doUpdata = (data = {},id,Authorization ) => {
+export const doUpdata = (data = {}, id) => {
     return request({
-        url:`/api/v1/picture/${id}`,
+        url: `/api/v1/picture/${id}`,
         method: 'PATCH',
-        headers: {'Authorization': Authorization},
         data,
     })
 }
 
 //删除
-export const doDelete = (id,Authorization ) => {
+export const doDelete = (id, Authorization) => {
     return request({
         url: `/api/v1/picture/${id}`,
         method: 'DELETE',
@@ -76,7 +75,7 @@ export const doDelete = (id,Authorization ) => {
 }
 
 //详情
-export const doDetail = (id,Authorization ) => {
+export const doDetail = (id, Authorization) => {
     return request({
         url: `/api/v1/picture/${id}`,
         method: 'GET',
@@ -87,15 +86,15 @@ export const doDetail = (id,Authorization ) => {
 // 我的收藏
 export const doCollectList = () => {
     return request({
-        url:`/api/v1/collect?current=2&length=10`,
+        url: `/api/v1/collect?current=2&length=10`,
         method: 'GET',
     })
 }
 
 //更新用户信息
-export const doUpdateUserInformation = (data = {},Authorization ) => {
+export const doUpdateUserInformation = (data = {}, Authorization) => {
     return request({
-        url:`/api/v1/user/profile`,
+        url: `/api/v1/user/profile`,
         method: 'PATCH',
         headers: {'Authorization': Authorization},
         data,
@@ -103,27 +102,27 @@ export const doUpdateUserInformation = (data = {},Authorization ) => {
 }
 
 //用户列表
-export const doUserList = (Authorization ) => {
+export const doUserList = (Authorization) => {
     return request({
-        url:`/api/v1/user?current=10&length=10`,
+        url: `/api/v1/user?current=10&length=10`,
         method: 'GET',
         headers: {'Authorization': Authorization},
     })
 }
 
 //用户详情
-export const doUserDetails = (id,Authorization ) => {
+export const doUserDetails = (id, Authorization) => {
     return request({
-        url:`/api/v1/user/${id}`,
+        url: `/api/v1/user/${id}`,
         method: 'GET',
         headers: {'Authorization': Authorization},
     })
 }
 
 //修改密码
-export const doUpdatePassword = (data = {},Authorization ) => {
+export const doUpdatePassword = (data = {}, Authorization) => {
     return request({
-        url:`/api/v1/user/update-password`,
+        url: `/api/v1/user/update-password`,
         method: 'PATCH',
         headers: {'Authorization': Authorization},
         data,
@@ -133,7 +132,7 @@ export const doUpdatePassword = (data = {},Authorization ) => {
 //重置密码
 export const doResetPassword = (data = {}) => {
     return request({
-        url:`/api/v1/user/reset-password`,
+        url: `/api/v1/user/reset-password`,
         method: 'PATCH',
         data,
     })
@@ -142,7 +141,7 @@ export const doResetPassword = (data = {}) => {
 // 点赞
 export const doLike = (pictureId) => {
     return request({
-        url:`/api/v1/like`,
+        url: `/api/v1/like`,
         method: 'POST',
         data: pictureId,
     })
@@ -151,7 +150,7 @@ export const doLike = (pictureId) => {
 // 取消点赞
 export const doCancellike = (pictureId) => {
     return request({
-        url:`/api/v1/like`,
+        url: `/api/v1/like`,
         method: 'DELETE',
         data: pictureId,
     })
@@ -160,7 +159,7 @@ export const doCancellike = (pictureId) => {
 // 收藏
 export const doCollect = (pictureId) => {
     return request({
-        url:`/api/v1/collect`,
+        url: `/api/v1/collect`,
         method: 'POST',
         data: pictureId,
     })
@@ -169,7 +168,7 @@ export const doCollect = (pictureId) => {
 // 取消收藏
 export const doCancelCollect = (pictureId) => {
     return request({
-        url:`/api/v1/collect`,
+        url: `/api/v1/collect`,
         method: 'DELETE',
         data: pictureId,
     })

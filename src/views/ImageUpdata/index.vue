@@ -3,45 +3,51 @@
     <div class="c-card">
       <div class="section-content">
         <label class="choose-image">
-          <img src="@/assets/images/loginbgc.png" alt="img">
+          <img :src="imageUrl(detailList.file.filepath)" alt="img">
           <input type="file" @change="handleFiles">
         </label>
         <div class="image-title">
-          <input type="text" placeholder="请输入图片的标题" v-model="title">
+          <input type="text" placeholder="请输入图片的标题" v-model="detailList.title">
         </div>
         <div class="image-button-group">
           <label>
-            <input type="radio" id="public" name="image" value="public" v-model="type" @change="handleType">public
+            <input type="radio" id="public" name="image" value="public" v-model="detailList.type" @change="handleType">public
           </label>
           <label>
-            <input type="radio" id="private" name="image" value="private" v-model="type" @change="handleType">private
+            <input type="radio" id="private" name="image" value="private" v-model="detailList.type"
+                   @change="handleType">private
           </label>
         </div>
         <textarea class="picture-detail" style="resize: none" rows="4" placeholder=" 图片详细信息"
-                  v-model="description">
+                  v-model="detailList.description">
+
         </textarea>
-        <button type="submit" class="c-button" @click="handleUploadImage">提交</button>
+        <button type="submit" class="c-button" @click="handleUpdataImage">提交</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {doFile, doGain} from "@/api";
+import {doDetail, doFile, doUpdata} from "@/api";
 
 export default {
   data() {
     return {
-      type: '',
-      title: '',
-      description: '',
-      fileId: '',
       files: '',
+      fileid: '',
+      id: '',
+      detailList: [],
     }
   },
   methods: {
+    //获取图片url路径
+    imageUrl(filepath) {
+      return ("https://img.daysnap.cn/api/" + filepath)
+    },
     handleType() {
     },
+    //获取图片
     handleFiles(event) {
       this.files = event.target.files
       let formData = new FormData();
@@ -53,18 +59,34 @@ export default {
         alert(error.response.data.msg)
       })
     },
-    handleUploadImage() {
-      let token = window.localStorage.getItem('token')
-      let Authorization = 'Bearer ' + token
-      const {title, description, type, fileId} = this
-      doGain({title, description, type, fileId}, Authorization).then(result => {
-        this.$router.push('/home')
+    //更新图片
+    handleUpdataImage() {
+      const title = this.detailList.title
+      const type = this.detailList.type
+      const description = this.detailList.description
+      const {fileid, id} = this
+
+      doUpdata({title, type, description, fileid}, id).then(result => {
+        this.$router.replace('/home')
+        console.log(result)
       }).catch(error => {
-        console.dir(error)
         alert(error.response.data.msg)
       })
     }
+
   },
+  mounted() {
+    this.id = this.$route.query.id
+    this.fileid = this.$route.query.fileid
+    //图片信息
+    const {id} = this
+    doDetail(id).then(result => {
+      this.detailList = result.data.data
+    }).catch(error => {
+      alert(error.response.data.msg)
+    })
+
+  }
 }
 </script>
 

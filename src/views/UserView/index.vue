@@ -103,6 +103,7 @@
         </div>
       </div>
 
+
     </div>
   </div>
 </template>
@@ -122,23 +123,19 @@ import {
   export default {
     data(){
       return {
-
+        active:2,
         nickname: '',
         signature: '',
         sex: '',
         avatarId: '',
-
         files: '',
         UserList: '',
         UserID: '',
-
         oldPassword: '',
         password: '',
-
         email: '2532499815@qq.com',
         captcha: '',
         resetPassword: '',
-
         isCollectList: false,
         isInformation: false,
         isUserList: false,
@@ -148,6 +145,9 @@ import {
       }
     },
     methods: {
+      handleCreateImage(){
+        this.$router.push('/imagecreate')
+      },
       //我的收藏
       handleCollectList(){
         this.isCollectList = true
@@ -157,7 +157,6 @@ import {
           alert(error.response.data.msg)
         })
       },
-
       //更新用户信息
       handleUpdateUserInformation(){
         this.isInformation = true
@@ -167,10 +166,7 @@ import {
         let formData = new FormData();
         formData.append('file', this.files[0]);
 
-        let token = window.localStorage.getItem('token')
-        let Authorization = 'Bearer ' + token
-
-        doFile( formData, Authorization ).then(result => {
+        doFile( formData ).then(result => {
           this.avatarId = result.data.data.id
           console.log(this.avatarId)
         }).catch(error => {
@@ -178,64 +174,49 @@ import {
         })
       },
       handleUpdateUser(){
-
-        let token = window.localStorage.getItem('token')
-        let Authorization = 'Bearer ' + token
-
         const { nickname, signature, sex, avatarId } = this
-        doUpdateUserInformation( { nickname, signature, sex, avatarId },Authorization ).then(result => {
+        doUpdateUserInformation( { nickname, signature, sex, avatarId } ).then(result => {
+          this.isInformation = false
           console.log(result)
         }).catch(error => {
           alert(error.response.data.msg)
         })
       },
-
       //用户列表
       handleUserList(){
         this.isUserList = true
-
-        let token = window.localStorage.getItem('token')
-        let Authorization = 'Bearer ' + token
-        doUserList(Authorization).then(result => {
+        doUserList().then(result => {
           this.UserList = result.data.data.list
         }).catch(error => {
           alert(error.response.data.msg)
         })
       },
-
       // 用户详情
       handleUserDetails(){
         this.isUserDetails = true
-
-        let token = window.localStorage.getItem('token')
-        let Authorization = 'Bearer ' + token
-
         this.UserID = this.UserList[0].id
         let {UserID} = this
         console.log(UserID)
 
-        doUserDetails(UserID,Authorization).then(result => {
+        doUserDetails(UserID).then(result => {
           console.log(result)
         }).catch(error => {
           alert(error.response.data.msg)
         })
       },
-
       // 修改密码
       handleUpdatePassword(){
         this.isUpdatePassword = true
       },
       handleUpdate(){
         const {oldPassword,password} = this
-        let token = window.localStorage.getItem('token')
-        let Authorization = 'Bearer ' + token
-        doUpdatePassword({oldPassword,password},Authorization).then(result => {
+        doUpdatePassword({oldPassword,password}).then(result => {
+          this.isUpdatePassword = false
           console.log(result)
         }).catch(error => {
           alert(error.response.data.msg)
         })
       },
-
       // 重置密码
       handleResetPassword(){
         this.isResetPassword = true
@@ -243,6 +224,7 @@ import {
       handleCode(){
         const { email } = this
         doEmailSend({ email, type: 'reset-password' }).then(result => {
+          this.isResetPassword = false
           console.log(result)
         }).catch(error => {
           console.dir(error)
@@ -357,6 +339,59 @@ import {
   padding: j(10);
   border-radius: j(8);
   white-space: nowrap;
+}
 
+.nav-button-group {
+  height: j(40);
+  background-color: #ddd;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .home-button:after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    width: j(48);
+    height: j(48);
+    background-color: #fff;
+    right: j(166);
+    bottom: j(18);
+  }
+  .user-button:before {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    width: j(48);
+    height: j(48);
+    background-color: #fff;
+    left: j(166);
+    bottom: j(18);
+  }
+  button {
+    width: 50%;
+    height: 100%;
+    border: none;
+  }
+  .active {
+    background-color: blue;
+    color: #fff;
+    font-weight: 500;
+  }
+  .image-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: j(166);
+    bottom: j(20);
+    width: j(44);
+    height: j(44);
+    background-color: #EB1E23;
+    box-shadow: 0 0 j(10) j(5) #0003;
+    border-radius: 50%;
+    color: #fff;
+    font-size: j(14);
+  }
 }
 </style>
