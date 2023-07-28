@@ -1,5 +1,5 @@
 <template>
-  <div class="home-view">
+  <div class="home-view" @scroll="handleScrollListener">
 
     <div class="home-nav">
       <div class="nav-info">
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-<!--    图片列表-->
+    <!--    图片列表-->
     <div class="home-list">
       <ul class="image-card">
         <li v-for="imgObj in currentPageData" :key="imgObj.id" @click="handleImageDetail(imgObj.id)">
@@ -72,8 +72,8 @@
       </ul>
     </div>
 
-<!--    删除弹窗-->
-    <div class="popup-view" v-show="isPopup"  @click="isPopup = false">
+    <!--    删除弹窗-->
+    <div class="popup-view" v-show="isPopup" @click="isPopup = false">
       <div class="content" @click.stop="$emit('null')">
         <h2>温馨提示</h2>
         <p>确认要删除这条数据吗？</p>
@@ -84,13 +84,17 @@
       </div>
     </div>
 
-<!--    分页-->
-<!--   <div class="page-button-group">-->
-<!--     <input type="button" value="首页" @click="handleFirstPage">-->
-<!--     <input type="button" value="上一页" @click="handlePrevPage">-->
-<!--     <input type="button" value="下一页" @click="handleNextPage">-->
-<!--     <input type="button" value="尾页" @click="handleLastPage">-->
-<!--   </div>-->
+    <div class="scroll-bottom" v-if="isScrollBottm">
+      <p>已经加载完毕了</p>
+    </div>
+
+    <!--    分页-->
+    <!--   <div class="page-button-group">-->
+    <!--     <input type="button" value="首页" @click="handleFirstPage">-->
+    <!--     <input type="button" value="上一页" @click="handlePrevPage">-->
+    <!--     <input type="button" value="下一页" @click="handleNextPage">-->
+    <!--     <input type="button" value="尾页" @click="handleLastPage">-->
+    <!--   </div>-->
 
     <transition name="fade">
       <loading v-if="isLoading"></loading>
@@ -102,6 +106,7 @@
 <script>
 import {doDelete, doTabulation} from "@/api";
 import Loading from "@/components/Loading/index.vue";
+
 export default {
   components: {Loading},
   data() {
@@ -120,7 +125,7 @@ export default {
       current: 1, //当前页数
       length: 10, // 每页显示数量
       currentPageData: [], //当前页显示内容
-      a: '',
+      isScrollBottm: false,
     }
   },
   methods: {
@@ -143,7 +148,7 @@ export default {
       // let begin = (this.current - 1) * this.length;
       let end = this.current * this.length;
       // this.currentPageData = this.imageList.slice( begin, end);
-      this.currentPageData = this.imageList.slice( 0, end);
+      this.currentPageData = this.imageList.slice(0, end);
     },
     //首页
     // handleFirstPage(){
@@ -201,7 +206,7 @@ export default {
       this.id = id
       this.isPopup = true
     },
-    handleReissue(){
+    handleReissue() {
       const {id} = this
       doDelete(id).then(() => {
         this.isPopup = false
@@ -227,18 +232,23 @@ export default {
     handleFilter() {
       this.isFilter = !this.isFilter
     },
+    handleScrollListener(event) {
+      let clientHeight = event.target.clientHeight    //客户端高度
+      let scrollTop = event.target.scrollTop          //滚动距离
+      let scrollHeight = event.target.scrollHeight    //内容总高度
+      const Height = clientHeight + scrollTop + 1 >= scrollHeight
+
+      console.log('滚动中')
+
+      if (Height) {
+        console.log('滚动到底部了')
+        this.reqDataList(this.current + 1)
+      }
+    },
   },
   mounted() {
     this.reqDataList(1)
-    this.current = this.$route.query.current
   },
-  watch: {
-    current : {
-      handler(nv,ov){
-        console.log(nv,ov)
-      }
-    }
-  }
 }
 </script>
 
@@ -246,6 +256,8 @@ export default {
 @import '@/assets/sass/define.scss';
 
 .home-view {
+  overflow-y: auto;
+  height: 100vh;
   position: relative;
 }
 
@@ -768,6 +780,7 @@ export default {
     font-size: j(14);
   }
 }
+
 .page-button-group {
   position: fixed;
   left: 0;
@@ -778,6 +791,14 @@ export default {
   justify-content: space-between;
   background-color: #fff;
   border: 1px solid #ccc;
+}
+.scroll-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: j(40);
+  height: j(40);
+  display: flex;
 
 }
 </style>

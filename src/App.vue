@@ -9,7 +9,6 @@
     margin: 0 auto;
     width: j(375);
     height: 100vh;
-    overflow-y: auto;
   }
   .fade-enter,
   .fade-leave-active {

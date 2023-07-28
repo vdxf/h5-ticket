@@ -1,9 +1,9 @@
 <template>
-  <div class="main-view" @scroll="handleScrollListener">
+  <div class="main-view" >
     <router-view></router-view>
 
     <div class="nav-button-group">
-      <router-link class="button home-button" :class="{'active': $route.path === '/home'}" :to="{path: '/home', query: {current : current}}" replace>首页</router-link>
+      <router-link class="button home-button" :class="{'active': $route.path === '/home'}" to="/home" replace>首页</router-link>
       <router-link class="button user-button" :class="{'active': $route.path === '/userview'}" to="/userview" replace>用户</router-link>
       <router-link class="image-add" to="/imagecreate">+</router-link>
     </div>
@@ -18,21 +18,7 @@ export default {
     }
   },
   methods: {
-    handleScrollListener(event) {
-      if (this.$route.path === '/home') {
-        let clientHeight = event.target.clientHeight    //客户端高度
-        let scrollTop = event.target.scrollTop          //滚动距离
-        let scrollHeight = event.target.scrollHeight    //内容总高度
-        const Height = clientHeight + scrollTop + 1 >= scrollHeight
 
-        console.log('滚动中')
-
-        if (Height) {
-          console.log('滚动到底部了')
-          this.current = this.current + 1
-        }
-      }
-    },
   },
 }
 </script>
