@@ -134,8 +134,8 @@ export default {
       this.isLoading = true
       doTabulation({current: current, length: 10}).then(result => {
         this.imageList = result.data.data.list.reverse()
-        // this.totalPage = Math.ceil(this.imageList.length / this.length)
-        // this.totalPage = this.totalPage === 0 ? 1 : this.totalPage
+        this.totalPage = Math.ceil(this.imageList.length / this.length)
+        this.totalPage = this.totalPage === 0 ? 1 : this.totalPage
         this.current = current
         this.getCurrentPageData()
         this.isLoading = false
@@ -239,10 +239,16 @@ export default {
       const Height = clientHeight + scrollTop + 1 >= scrollHeight
 
       console.log('滚动中')
+      this.isScrollBottm = false
 
       if (Height) {
         console.log('滚动到底部了')
-        this.reqDataList(this.current + 1)
+        if (this.current === this.totalPage) {
+          this.isScrollBottm = true
+          this.getCurrentPageData()
+        } else {
+          this.reqDataList(this.current + 1)
+        }
       }
     },
   },
@@ -799,6 +805,6 @@ export default {
   bottom: j(40);
   height: j(40);
   display: flex;
-
+  align-items: center;
 }
 </style>
