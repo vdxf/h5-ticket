@@ -238,11 +238,9 @@ export default {
       let scrollHeight = event.target.scrollHeight    //内容总高度
       const Height = clientHeight + scrollTop + 1 >= scrollHeight
 
-      console.log('滚动中')
       this.isScrollBottm = false
 
       if (Height) {
-        console.log('滚动到底部了')
         if (this.current === this.totalPage) {
           this.isScrollBottm = true
           this.getCurrentPageData()
@@ -376,7 +374,7 @@ export default {
 .home-list {
   background-color: #f6f3f3;
   box-sizing: border-box;
-  padding: j(12) j(12) j(50);
+  padding: j(12) j(12) j(80);
 }
 
 .grant-card, .part-card, .voided-card, .image-card {
@@ -802,9 +800,10 @@ export default {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: j(40);
+  bottom: j(60);
   height: j(40);
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 </style>
