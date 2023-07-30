@@ -3,23 +3,21 @@
     <div class="c-card">
       <div class="section-content">
         <label class="choose-image">
-          <img :src="imageUrl(detailList.file.filepath)" alt="img">
+          <img v-if="filepath" :src="imageUrl(filepath)" alt="img">
           <input type="file" @change="handleFiles">
         </label>
         <div class="image-title">
-          <input type="text" placeholder="请输入图片的标题" v-model="detailList.title">
+          <input type="text" placeholder="请输入图片的标题" v-model="title">
         </div>
         <div class="image-button-group">
           <label>
-            <input type="radio" id="public" name="image" value="public" v-model="detailList.type" @change="handleType">public
+            <input type="radio" id="public" name="image" value="public" v-model="type" @change="handleType">public
           </label>
           <label>
-            <input type="radio" id="private" name="image" value="private" v-model="detailList.type"
-                   @change="handleType">private
+            <input type="radio" id="private" name="image" value="private" v-model="type" @change="handleType">private
           </label>
         </div>
-        <textarea class="picture-detail" style="resize: none" rows="4" placeholder=" 图片详细信息"
-                  v-model="detailList.description">
+        <textarea class="picture-detail" style="resize: none" rows="4" placeholder=" 图片详细信息" v-model="description">
 
         </textarea>
         <button type="submit" class="c-button" @click="handleUpdataImage">提交</button>
@@ -34,10 +32,12 @@ import {doDetail, doFile, doUpdata} from "@/api";
 export default {
   data() {
     return {
-      files: '',
-      fileid: '',
       id: '',
-      detailList: [],
+      title: '',
+      description: '',
+      type: '',
+      fileId: '',
+      filepath: '',
     }
   },
   methods: {
@@ -49,43 +49,52 @@ export default {
     },
     //获取图片
     handleFiles(event) {
-      this.files = event.target.files
-      let formData = new FormData();
-      formData.append('file', this.files[0]);
-
+      const file = event.target.files[0]
+      const formData = new FormData();
+      formData.append('file', file);
       doFile(formData).then(result => {
         this.fileId = result.data.data.id
+        this.filepath = result.data.data.filepath
       }).catch(error => {
         alert(error.response.data.msg)
       })
     },
     //更新图片
     handleUpdataImage() {
-      const title = this.detailList.title
-      const type = this.detailList.type
-      const description = this.detailList.description
-      const {fileid, id} = this
-
-      doUpdata({title, type, description, fileid}, id).then(result => {
-        this.$router.replace('/home')
-        console.log(result)
+      const { fileId, id, title, description, type } = this
+      if (id) {
+        doUpdata({title, type, description, fileId }, id).then(result => {
+          this.$router.replace('/home')
+          console.log(result)
+        }).catch(error => {
+          alert(error.response.data.msg)
+        })
+      } else {
+        //
+      }
+    },
+    reqPictureInfo () {
+      const { id } = this.$route.query
+      if (!id) {
+        return
+      }
+      doDetail(id).then(result => {
+        console.log('result => ', result)
+        const { file, id, title, description, type } = result.data.data
+        const { id: fileId , filepath } = file
+        this.id = id
+        this.title = title
+        this.description = description
+        this.type = type
+        this.fileId = fileId
+        this.filepath = filepath
       }).catch(error => {
         alert(error.response.data.msg)
       })
     }
-
   },
-  mounted() {
-    this.id = this.$route.query.id
-    this.fileid = this.$route.query.fileid
-    //图片信息
-    const {id} = this
-    doDetail(id).then(result => {
-      this.detailList = result.data.data
-    }).catch(error => {
-      alert(error.response.data.msg)
-    })
-
+   created() {
+    this.reqPictureInfo()
   }
 }
 </script>

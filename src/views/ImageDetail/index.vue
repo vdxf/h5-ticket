@@ -1,7 +1,7 @@
 <template>
   <div class="c-view">
     <div class="c-card">
-        <div class="detail-group">
+        <div class="detail-group" v-if="detailList">
           <p>图片标题：{{detailList.title}}</p>
           <p>类型：{{detailList.type}}</p>
           <p>描述：{{detailList.description}}</p>
@@ -23,6 +23,7 @@
             </div>
           </div>
         </div>
+        <div v-else>loading</div>
     </div>
   </div>
 </template>
@@ -33,7 +34,7 @@ import {doCancelCollect, doCancellike, doCollect, doDetail, doLike} from "@/api"
   export default {
       data(){
         return {
-          detailList: [],
+          detailList: '',
           id: '',
         }
       },
