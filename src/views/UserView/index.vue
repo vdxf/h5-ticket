@@ -279,6 +279,7 @@ import {
   background-color: #fff;
   padding: j(20);
   border-radius: j(8);
+  margin-bottom: j(40);
   h1 {
     font-size: j(20);
     color: #ccc;
